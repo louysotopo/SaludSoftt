@@ -6,8 +6,8 @@ app.config.update(
     MAIL_SERVER='smtp.gmail.com',
     MAIL_PORT=465,
     MAIL_USE_SSL=True,
-    MAIL_USERNAME = 'caja.pruebasaqp@gmail.com',
-    MAIL_PASSWORD = 'Pruebas_CAJA'
+    MAIL_USERNAME = 'louysotopo123@gmail.com',
+    MAIL_PASSWORD = 'rfxxnalvdpdylkth'
 )
 mail = Mail(app) 
 
@@ -16,9 +16,7 @@ def sendEmail():
     data = request.json
     try:
         dest=data["destinatario"].split(sep=';')
-        msg = Message(data["asunto"],
-        sender=app.config['MAIL_USERNAME'],
-        recipients=dest)
+        msg = Message(data["asunto"], sender=app.config['MAIL_USERNAME'], recipients=dest)
         msg.body = data["mensaje"]
         mail.send(msg)
         return jsonify({"resultado":"Enviado"})
