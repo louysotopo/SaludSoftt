@@ -22,8 +22,8 @@ def sendEmail():
         msg.body = data["mensaje"]
         mail.send(msg)
         return jsonify({"resultado":"Enviado"})
-    except:
-         return jsonify({"resultado":"No enviado"})
+    except Exception as e:
+         return jsonify({"resultado":e})
 
 
 @app.route('/predict/')
