@@ -1,7 +1,10 @@
 from flask import Flask, app,jsonify,request;
+from flask_cors import CORS;
 from flask_mail import Mail, Message 
 
 app = Flask(__name__)
+CORS(app)
+
 app.config.update(
     MAIL_SERVER='smtp.gmail.com',
     MAIL_PORT=465,
