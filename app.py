@@ -11,30 +11,37 @@ app.config.update(
 )
 mail = Mail(app) 
 
-@app.route('/correo/send/')
+@app.route('/correo/send/',methods = ['POST','GET'])
 def sendEmail():
     data = request.json
-    try:
-        dest=data["destinatario"].split(sep=';')
-        msg = Message(data["asunto"], sender=app.config['MAIL_USERNAME'], recipients=dest)
-        msg.body = data["mensaje"]
-        mail.send(msg)
-        return jsonify({"resultado":"Enviado"})
-    except Exception as e:
-         return jsonify({"resultado":e})
+    if request.method == 'POST':
+        try:
+            dest=data["destinatario"].split(sep=';')
+            msg = Message(data["asunto"], sender=app.config['MAIL_USERNAME'], recipients=dest)
+            msg.body = data["mensaje"]
+            mail.send(msg)
+            return jsonify({"resultado":"Enviado"})
+        except Exception as e:
+            return jsonify({"resultado":e})
+    if request.method == 'GET':
+        try:
+            dest=data["destinatario"].split(sep=';')
+            msg = Message(data["asunto"], sender=app.config['MAIL_USERNAME'], recipients=dest)
+            msg.body = data["mensaje"]
+            mail.send(msg)
+            return jsonify({"resultado":"Enviado"})
+        except Exception as e:
+            return jsonify({"resultado":e})
 
-
-@app.route('/predict/')
+@app.route('/predict/',methods = ['POST','GET'])
 def predict():
-
-    data = request.json
-
     resultado = ""
-
-    if data["muscle_stiffness"] == True:
-        resultado = "Tiene Diabetes"
-    else:
-        resultado = "No tiene Diabetes"
+    if request.method == 'POST':
+        data = request.json
+        if data["muscle_stiffness"] == True:
+            resultado = "Tiene Diabetes"
+        else:
+            resultado = "No tiene Diabetes"
 
     return jsonify({"resultado":resultado})
 
