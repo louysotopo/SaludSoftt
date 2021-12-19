@@ -46,10 +46,10 @@ def predict():
         message = ""
         try:
             model = joblib.load('best_model.pkl')
-            x_test = np.array([  data["age"], data["gender"], int(data["polyura"]), int(data["polydipsia"]),
-            int(data["weigtht_loss"]),int(data["weakness"]),int(data["polyfagia"]),int(data["genital_thrush"]),
-            int(data["visual_blurring"]),int(data["itchinf"]),int(data["irritabilty"]),int(data["delayed_healing"]),
-            int(data["partial_paresis"]),int(data["muscle_stiffness"]),int(data["Alopecia"]),int(data["Obesity"])])
+            x_test = np.array([  data["age"], data["gender"], data["polyura"], data["polydipsia"],
+            data["weigtht_loss"],data["weakness"],data["polyfagia"],data["genital_thrush"],
+            data["visual_blurring"],data["itchinf"],data["irritabilty"],data["delayed_healing"],
+            data["partial_paresis"],data["muscle_stiffness"],data["Alopecia"],data["Obesity"]])
             prediction = model.predict(x_test.reshape(1,-1))
             if str(prediction) == "[1]":
                 message = "Con diabetes"        
