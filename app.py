@@ -2,6 +2,33 @@ from flask import Flask, app,jsonify,request;
 from flask_cors import CORS;
 from flask_mail import Mail, Message 
 
+
+import joblib
+import numpy as np
+import pandas as pd
+import sklearn
+
+from flask import Flask, render_template, request
+from flask import jsonify
+
+from sklearn.tree import DecisionTreeClassifier
+
+from sklearn.model_selection import (
+    cross_val_score, KFold
+)
+
+
+import matplotlib.pyplot as plt 
+
+
+from sklearn.decomposition import PCA
+from sklearn.decomposition import IncrementalPCA
+ 
+from sklearn.linear_model import LogisticRegression
+ 
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split
+
 app = Flask(__name__)
 CORS(app)
 
@@ -38,15 +65,16 @@ def sendEmail():
 
 @app.route('/predict/',methods = ['POST','GET'])
 def predict():
-    resultado = ""
     if request.method == 'POST':
         data = request.json
-        if data["muscle_stiffness"] == True:
-            resultado = "Tiene Diabetes"
-        else:
-            resultado = "No tiene Diabetes"
+        x_test = np.array([data["age"],data["gender"],data["polyuria"],data["polydipsia"],
+        data["sudden_weight_loss"],data["weakness"],data["Polyphagia"],data["genital_thrush"],
+        data["visual_blurring"],data["itching"],data["irritability"],data["delayed_healing"],
+        data["partial_paresis"],data["muscle_stiffness"],data["alopecia"],data["obesity"]])
+        prediction = model.predict(x_test.reshape(1,-1))
 
-    return jsonify({"resultado":resultado})
+    return jsonify({'prediccion': str(prediction)})
 
 if __name__ == '__main__':
-    app.run()
+    model = joblib.load('./models/best_model.pkl')
+    app.run(port=8200)
