@@ -45,11 +45,12 @@ def predict():
         data = request.json
         message = ""
         try:
+            model = joblib.load('best_model.pkl')
             x_test = np.array([  data["age"], data["gender"], int(data["polyura"]), int(data["polydipsia"]),
             int(data["weigtht_loss"]),int(data["weakness"]),int(data["polyfagia"]),int(data["genital_thrush"]),
             int(data["visual_blurring"]),int(data["itchinf"]),int(data["irritabilty"]),int(data["delayed_healing"]),
             int(data["partial_paresis"]),int(data["muscle_stiffness"]),int(data["Alopecia"]),int(data["Obesity"])])
-            prediction = "[1]" #model.predict(x_test.reshape(1,-1))
+            prediction = model.predict(x_test.reshape(1,-1))
             if str(prediction) == "[1]":
                 message = "Con diabetes"        
             else:
@@ -60,5 +61,5 @@ def predict():
     return jsonify({'prediccion': message})        
     
 if __name__ == '__main__':
-    model = joblib.load('./models/best_model.pkl')
+    
     app.run(port=8200)
