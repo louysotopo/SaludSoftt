@@ -49,7 +49,7 @@ def predict():
             int(data["weigtht_loss"]),int(data["weakness"]),int(data["polyfagia"]),int(data["genital_thrush"]),
             int(data["visual_blurring"]),int(data["itchinf"]),int(data["irritabilty"]),int(data["delayed_healing"]),
             int(data["partial_paresis"]),int(data["muscle_stiffness"]),int(data["Alopecia"]),int(data["Obesity"])])
-            prediction = model.predict(x_test.reshape(1,-1))
+            prediction = "[1]" #model.predict(x_test.reshape(1,-1))
             if str(prediction) == "[1]":
                 message = "Con diabetes"        
             else:
