@@ -1,32 +1,11 @@
 from flask import Flask, app,jsonify,request;
 from flask_cors import CORS;
 from flask_mail import Mail, Message 
-
-
 import joblib
 import numpy as np
-import pandas as pd
-import sklearn
-
-from flask import Flask, render_template, request
+from flask import Flask,request
 from flask import jsonify
 
-from sklearn.tree import DecisionTreeClassifier
-
-from sklearn.model_selection import (
-    cross_val_score, KFold
-)
-
-
-import matplotlib.pyplot as plt 
-
-
-from sklearn.decomposition import PCA
-from sklearn.decomposition import IncrementalPCA
- 
-from sklearn.linear_model import LogisticRegression
- 
-from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 
 app = Flask(__name__)
