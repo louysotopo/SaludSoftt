@@ -5,9 +5,6 @@ import joblib
 import numpy as np
 from flask import Flask,request
 from flask import jsonify
-
-from sklearn.model_selection import train_test_split
-
 app = Flask(__name__)
 CORS(app)
 
